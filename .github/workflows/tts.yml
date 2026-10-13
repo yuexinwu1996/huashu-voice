@@ -1,0 +1,41 @@
+name: tts
+# Triggered when a job file is pushed to jobs/. Synthesizes with the cloned voice and commits the WAVs back.
+on:
+  push:
+    branches: [main]
+    paths: ["jobs/*.json"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tts
+  cancel-in-progress: false
+
+jobs:
+  synth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests==2.32.3
+      - name: Synthesize pending jobs
+        env:
+          VOLC_API_KEY: ${{ secrets.VOLC_API_KEY }}
+          VOLC_APP_ID: ${{ secrets.VOLC_APP_ID }}
+          VOLC_ACCESS_TOKEN: ${{ secrets.VOLC_ACCESS_TOKEN }}
+          VOLC_SPEAKER_ID: ${{ secrets.VOLC_SPEAKER_ID }}
+          VOLC_TTS_RESOURCE_ID: ${{ vars.VOLC_TTS_RESOURCE_ID }}
+        run: python scripts/synth.py
+      - name: Commit outputs
+        run: |
+          git config user.name "huashu-voice-bot"
+          git config user.email "huashu-voice-bot@users.noreply.github.com"
+          git add outputs
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -m "tts outputs [skip ci]"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && break; sleep 3; done
