@@ -26,9 +26,22 @@ TTS_RESOURCE = os.getenv("VOLC_TTS_RESOURCE_ID", "").strip() or "seed-icl-2.0"
 CLONE_RESOURCE = "volc.megatts.voiceclone"
 
 
+AUTH = {"mode": "api_key" if API_KEY else "app_token"}
+
+
+def key_shape(k):
+    """Describe a credential without revealing it: length, charset, known prefixes."""
+    import re
+    if not k: return "empty"
+    kind = ("uuid" if re.fullmatch(r"[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}", k)
+            else "iam_access_key_id(AKLT…)" if k.startswith("AKLT") else "other")
+    return {"len": len(k), "kind": kind, "has_space": any(c.isspace() for c in k),
+            "non_ascii": any(ord(c) > 127 for c in k), "quoted": k[:1] in "'\"" or k[-1:] in "'\""}
+
+
 def headers(resource):
     h = {"X-Api-Resource-Id": resource, "X-Api-Request-Id": str(uuid.uuid4()), "Content-Type": "application/json"}
-    if API_KEY:
+    if AUTH["mode"] == "api_key" and API_KEY:
         h["X-Api-Key"] = API_KEY
     elif APP_ID and TOKEN:
         h["X-Api-App-Id"] = APP_ID
@@ -102,8 +115,15 @@ def run(job_path):
         if not speaker:
             raise RuntimeError("no speaker: set secret VOLC_SPEAKER_ID (S_xxx) or pass speaker in the job")
         if job.get("kind") == "check":
+            status["creds"] = {"VOLC_API_KEY": key_shape(API_KEY), "VOLC_APP_ID": key_shape(APP_ID),
+                               "VOLC_ACCESS_TOKEN": key_shape(TOKEN), "VOLC_SPEAKER_ID": key_shape(speaker)}
             status["voice"] = check_voice(speaker)
-            status["ok"] = status["voice"]["http"] == 200
+            if status["voice"]["http"] == 401 and API_KEY and APP_ID and TOKEN:
+                AUTH["mode"] = "app_token"; status["voice_app_token"] = check_voice(speaker)
+            status["auth_mode"] = AUTH["mode"]
+            status["ok"] = status["voice"]["http"] == 200 or status.get("voice_app_token", {}).get("http") == 200
+        elif API_KEY and APP_ID and TOKEN and check_voice(speaker)["http"] == 401:
+            AUTH["mode"] = "app_token"
         for ln in job.get("lines", []):
             item = {"id": ln["id"]}
             try:
