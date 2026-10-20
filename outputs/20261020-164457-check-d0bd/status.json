@@ -1,0 +1,20 @@
+{
+ "id": "20261020-164457-check-d0bd",
+ "kind": "check",
+ "speaker_set": true,
+ "lines": [
+  {
+   "id": "probe",
+   "ok": false,
+   "error": "HTTP 401: {\"header\":{\"reqid\":\"bbaf7315-1d03-41c9-91a0-6bdd429fd806\",\"code\":45000010,\"message\":\"Invalid X-Api-Key\"}}"
+  }
+ ],
+ "ok": false,
+ "voice": {
+  "http": 401,
+  "body": {
+   "code": 45000010,
+   "message": "Invalid X-Api-Key"
+  }
+ }
+}
