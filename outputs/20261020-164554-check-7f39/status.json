@@ -1,0 +1,39 @@
+{
+ "id": "20261020-164554-check-7f39",
+ "kind": "check",
+ "speaker_set": true,
+ "lines": [
+  {
+   "id": "probe",
+   "ok": false,
+   "error": "HTTP 401: {\"header\":{\"reqid\":\"f149447d-1a0f-4114-b9f5-cede960ccd2e\",\"code\":45000010,\"message\":\"Invalid X-Api-Key\"}}"
+  }
+ ],
+ "ok": false,
+ "creds": {
+  "VOLC_API_KEY": {
+   "len": 47,
+   "kind": "iam_access_key_id(AKLT…)",
+   "has_space": false,
+   "non_ascii": false,
+   "quoted": false
+  },
+  "VOLC_APP_ID": "empty",
+  "VOLC_ACCESS_TOKEN": "empty",
+  "VOLC_SPEAKER_ID": {
+   "len": 11,
+   "kind": "other",
+   "has_space": false,
+   "non_ascii": false,
+   "quoted": false
+  }
+ },
+ "voice": {
+  "http": 401,
+  "body": {
+   "code": 45000010,
+   "message": "Invalid X-Api-Key"
+  }
+ },
+ "auth_mode": "api_key"
+}
