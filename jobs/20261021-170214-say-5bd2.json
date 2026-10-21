@@ -1,0 +1,19 @@
+{
+ "id": "20261021-170214-say-5bd2",
+ "kind": "say",
+ "speaker": "",
+ "model": "seed-tts-2.0-expressive",
+ "speech_rate": 0,
+ "sample_rate": 48000,
+ "tone_fidelity": true,
+ "lines": [
+  {
+   "id": "s03",
+   "text": "前几天有条新闻：一所小学让二年级家长，每天拍辅导作业的视频上传打卡，有家长说，一天要花一个多小时。"
+  },
+  {
+   "id": "s06",
+   "text": "他们发现：不少冲突，恰恰出现在家长好心帮忙的时候。"
+  }
+ ]
+}
