@@ -1,0 +1,63 @@
+{
+ "id": "20261021-003151-check-da5e",
+ "kind": "check",
+ "speaker_set": true,
+ "lines": [
+  {
+   "id": "probe",
+   "ok": true,
+   "dur": 3.788,
+   "sr": 48000
+  }
+ ],
+ "ok": true,
+ "creds": {
+  "VOLC_API_KEY": {
+   "len": 36,
+   "kind": "uuid",
+   "has_space": false,
+   "non_ascii": false,
+   "quoted": false
+  },
+  "VOLC_APP_ID": "empty",
+  "VOLC_ACCESS_TOKEN": "empty",
+  "VOLC_SPEAKER_ID": {
+   "len": 11,
+   "kind": "other",
+   "has_space": false,
+   "non_ascii": false,
+   "quoted": false
+  }
+ },
+ "voice": {
+  "http": 200,
+  "body": {
+   "available_training_times": 14,
+   "create_time": 1791473729000,
+   "demo_audio": "https://lf9-lab-speech-tt-sign.bytespeech.com/tos-cn-o-14155/ogEXEEiAAJGQLz9HgABGA4Y1WP1QuBD6AeiUPM?x-expires=1792549926&x-signature=1KUwPJibPpFh%2Fn57rv09CgwnNPI%3D",
+   "extra_params": "{\"client_request_id\": \"\", \"enable_audio_denoise\": false}",
+   "icl_speaker_id": "ICL_6ac7b83b3046fcbd",
+   "language": 0,
+   "model_type": 1,
+   "model_version": 1,
+   "speaker_id": "S_VSI9bByh2",
+   "speaker_status": [
+    {
+     "demo_audio": "https://lf26-lab-speech-tt-sign.bytespeech.com/tos-cn-o-14155/ogEXEEiAAJGQLz9HgABGA4Y1WP1QuBD6AeiUPM?x-expires=1792549926&x-signature=6Ix9WSNS252IiVnKdBmV3Kn%2B1x0%3D",
+     "icl_speaker_id": "ICL_6ac7b83b3046fcbd",
+     "model_type": 1,
+     "model_version": 1
+    },
+    {
+     "demo_audio": "https://lf6-lab-speech-tt-sign.bytespeech.com/tos-cn-o-14155/okfeA1DD7qa3Egi2uWKiC0hBCLAMxAtHgwNNAA?x-expires=1792549926&x-signature=CjLjAbStUCQ5In01eTNSY8nKAmw%3D",
+     "icl_speaker_id": "ICL_uranus_6ac7b83a34ed55d4",
+     "model_type": 5,
+     "model_version": 2
+    }
+   ],
+   "status": 2,
+   "version": "V1"
+  }
+ },
+ "auth_mode": "api_key"
+}
