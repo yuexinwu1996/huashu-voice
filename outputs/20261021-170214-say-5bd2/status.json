@@ -1,0 +1,20 @@
+{
+ "id": "20261021-170214-say-5bd2",
+ "kind": "say",
+ "speaker_set": true,
+ "lines": [
+  {
+   "id": "s03",
+   "ok": true,
+   "dur": 11.176,
+   "sr": 48000
+  },
+  {
+   "id": "s06",
+   "ok": true,
+   "dur": 5.393,
+   "sr": 48000
+  }
+ ],
+ "ok": true
+}
